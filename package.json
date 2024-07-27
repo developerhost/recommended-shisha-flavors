@@ -11,6 +11,11 @@
     "format": "prettier --write .",
     "prepare": "husky install"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "autoprefixer": "^10.4.19",
