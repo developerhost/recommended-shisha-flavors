@@ -6,15 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write ."
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "eslint-config-prettier": "^9.1.0",
     "lucide-react": "^0.416.0",
     "next": "14.2.5",
     "postcss": "^8.4.40",
+    "prettier": "^3.3.3",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.4.0",
