@@ -5,6 +5,8 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:tailwindcss/recommended",
     "plugin:jsdoc/recommended-typescript-error",
+    "airbnb",
+    "airbnb-typescript",
     "next/core-web-vitals",
     "prettier"
   ],
@@ -14,7 +16,9 @@
   },
   "plugins": [
     "import",
+    "unused-imports",
     "@typescript-eslint",
+    "react",
     "tailwindcss",
     "jsdoc",
     "unicorn",
@@ -33,8 +37,62 @@
     "__generated__"
   ],
   "rules": {
-    /** メソッドシグネチャでの関数宣言を禁止 */
-    "@typescript-eslint/method-signature-style": "error",
+    "unused-imports/no-unused-imports": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        // グローバルorローカルのどの範囲の変数をチェックするかを指定(デフォルトはall)
+        "vars": "all",
+        // 名前付き引数をどこまでチェックするかを指定(デフォルトはafter-used)
+        "args": "all",
+        // チェックしない例外パターンを指定（ここではアンダースコアで書けば無視)
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    /** useState の返り値の命名を [value, setValue] に統一 */
+    "react/hook-use-state": "error",
+    /** Propsなどの分割代入を強制 */
+    "react/destructuring-assignment": "error",
+    /** デフォルト引数を使ってデフォルト値を設定可能に */
+    "react/require-default-props": "off",
+    /** propsをスプレッド構文で定義可能に */
+    "react/jsx-props-no-spreading": "off",
+    /** Reactのimportを不要に */
+    "react/react-in-jsx-scope": "off",
+    /** arrow関数を許可 */
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/prop-types": "off",
+    "react/jsx-fragments": "error",
+    "react/jsx-sort-props": "error",
+    "react/no-danger": "error",
+    /** 冗長なReact.Fragmentを禁止 */
+    "react/jsx-no-useless-fragment": ["error"],
+    /** 中身のない要素を禁止し、自己終了タグでの指定を強制 */
+    "react/self-closing-comp": ["error"],
+    /** イベントハンドラの命名規則 propsにon,関数にhandleを強制 */
+    "react/jsx-handler-names": [
+      "error",
+      {
+        "eventHandlerPrefix": "handle",
+        "eventHandlerPropPrefix": "on",
+        "checkLocalVariables": true,
+        "checkInlineFunction": true
+      }
+    ],
+    /** jsxでのbooleanの`={true}`を省略 */
+    "react/jsx-boolean-value": "error",
+    /** 文字列の冗長な`{}`を削除 */
+    "react/jsx-curly-brace-presence": "error",
+    /** コンポーネントにPascalCaseの命名を強制 */
+    "react/jsx-pascal-case": "error",
+    /** jsxへのコールバック関数の記載を禁止 */
+    "react/jsx-no-bind": ["warn", { "ignoreDOMComponents": true }],
     "no-restricted-syntax": [
       "error",
       "TSEnumDeclaration",
@@ -50,12 +108,29 @@
       }
     ],
     "object-shorthand": ["error", "always"],
+    /** メソッドシグネチャでの関数宣言を禁止 */
+    "@typescript-eslint/method-signature-style": "error",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "warn",
     /** non null assertionを禁止 */
     "@typescript-eslint/no-non-null-assertion": "error",
+    /** switch文の分岐網羅を強制 */
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+    /** awaitのないasyncを禁止 */
+    "@typescript-eslint/require-await": "error",
+    "@typescript-eslint/restrict-plus-operands": "error",
+    "@typescript-eslint/consistent-type-exports": "error",
+    /** 型定義のtype only importを強制 */
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports",
+        "disallowTypeAnnotations": true
+      }
+    ],
     "jsdoc/tag-lines": "off",
     "jsdoc/no-types": "off",
     /** 引数の`@params`での解説を強制 */
@@ -97,52 +172,17 @@
     ],
     /** 相対パスでのインポートを禁止 */
     "no-restricted-imports": ["error", { "patterns": ["./", "../"] }],
-    /** 冗長なReact.Fragmentを禁止 */
-    "react/jsx-no-useless-fragment": ["error"],
-    /** 中身のない要素を禁止し、自己終了タグでの指定を強制 */
-    "react/self-closing-comp": ["error"],
-    /** awaitのないasyncを禁止 */
-    "@typescript-eslint/require-await": "error",
     "require-await": "error",
     /** voidを期待される箇所でのPromise<void> form action用に無効化 */
     "@typescript-eslint/no-misused-promises": "off",
     /** 異なる型動詞の加算や、文字列の + による連結を禁止 */
     "no-implicit-coercion": "error",
-    "@typescript-eslint/restrict-plus-operands": "error",
     "prefer-template": "error",
-    /** switch文の分岐網羅を強制 */
-    "@typescript-eslint/switch-exhaustiveness-check": "error",
     /** switch文が適している箇所でのif文を修正 */
     "unicorn/prefer-switch": "error",
+    /** importの循環参照を禁止 */
     "import/no-cycle": "error",
-    /** 型定義のtype only importを強制 */
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      {
-        "prefer": "type-imports",
-        "fixStyle": "inline-type-imports",
-        "disallowTypeAnnotations": true
-      }
-    ],
     "import/consistent-type-specifier-style": ["error", "prefer-inline"],
-    "@typescript-eslint/consistent-type-exports": "error",
-
-    /** イベントハンドラの命名規則 propsにon,関数にhandleを強制 */
-    "react/jsx-handler-names": [
-      "error",
-      {
-        "eventHandlerPrefix": "handle",
-        "eventHandlerPropPrefix": "on",
-        "checkLocalVariables": true,
-        "checkInlineFunction": true
-      }
-    ],
-    /** jsxでのbooleanの`={true}`を省略 */
-    "react/jsx-boolean-value": "error",
-    /** 文字列の冗長な`{}`を削除 */
-    "react/jsx-curly-brace-presence": "error",
-    /** コンポーネントにPascalCaseの命名を強制 */
-    "react/jsx-pascal-case": "error",
     /** イミュータブルな操作を禁止 */
     "functional/immutable-data": [
       "warn",
@@ -171,8 +211,6 @@
         "singleReturnOnly": false
       }
     ],
-    /** jsxへのコールバック関数の記載を禁止 */
-    "react/jsx-no-bind": ["warn", { "ignoreDOMComponents": true }],
     /** console.logを禁止 */
     "no-console": "warn",
     /** 関数のステートメントを30個までに */

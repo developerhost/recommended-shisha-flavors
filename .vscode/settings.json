@@ -1,4 +1,4 @@
 {
-  "cSpell.words": ["clsx", "lockb", "lucide", "shisha", "tailwindcss"],
-  "editor.codeActionsOnSave": ["source.fixAll.eslint"]
+  "cSpell.words": ["clsx", "linebreak", "lockb", "lucide", "shisha", "tailwindcss"],
+  "editor.codeActionsOnSave": ["source.fixAll.eslint", "source.addMissingImports"]
 }
