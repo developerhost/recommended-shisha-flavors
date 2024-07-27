@@ -21,6 +21,16 @@
         "groups": ["builtin", "external", "internal", ["sibling", "parent"], "object"],
         "pathGroups": [
           {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "next/**",
+            "group": "external",
+            "position": "before"
+          },
+          {
             "pattern": "@/utils/**",
             "group": "internal",
             "position": "before"
@@ -51,13 +61,16 @@
             "position": "before"
           }
         ],
-        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": ["react", "next/**"],
+        "newlines-between": "always", // import間に改行
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
         }
       }
     ],
+    "import/newline-after-import": "error", // importの後に改行
+    "import/first": "error", // importをファイル先頭に記述
     "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }]
   }
 }
