@@ -16,6 +16,9 @@
       "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
+  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "autoprefixer": "^10.4.19",
