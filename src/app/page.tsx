@@ -1,5 +1,8 @@
 import { Button } from '@/components/ui/button'
 
-export default function Home() {
-  return <Button>Click thi</Button>
-}
+/**
+ * テスト用のページ
+ */
+const HOME = () => <Button>Click this</Button>
+
+export default HOME

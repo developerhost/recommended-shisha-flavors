@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+/**
+ * クラス名をマージする
+ * @param inputs クラス名
+ */
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))

@@ -17,9 +17,9 @@
     "@typescript-eslint",
     "tailwindcss",
     "jsdoc",
+    "unicorn",
     "functional",
-    "prefer-arrow-functions",
-    "local-rules"
+    "prefer-arrow-functions"
   ],
   "root": true,
   "ignorePatterns": [
@@ -34,11 +34,10 @@
   ],
   "rules": {
     /** メソッドシグネチャでの関数宣言を禁止 */
-    "@typescript-eslint/method-signature-style": ["error", "property"],
+    "@typescript-eslint/method-signature-style": "error",
     "no-restricted-syntax": [
       "error",
       "TSEnumDeclaration",
-      "TSInterfaceDeclaration",
       "ForInStatement",
       "ForOfStatement",
       "LabeledStatement",
@@ -96,11 +95,6 @@
         "descriptionStyle": "body"
       }
     ],
-    /** 見出しレベルのハードコードを禁止 */
-    "react/forbid-elements": [
-      "error",
-      { "forbid": ["h1", "h2", "h3", "h4", "h5", "h6"] }
-    ],
     /** 相対パスでのインポートを禁止 */
     "no-restricted-imports": ["error", { "patterns": ["./", "../"] }],
     /** 冗長なReact.Fragmentを禁止 */
@@ -121,8 +115,6 @@
     /** switch文が適している箇所でのif文を修正 */
     "unicorn/prefer-switch": "error",
     "import/no-cycle": "error",
-    /** インポート直後の空白行を強制 */
-    "import/newline-after-import": "error",
     /** 型定義のtype only importを強制 */
     "@typescript-eslint/consistent-type-imports": [
       "error",
@@ -151,10 +143,7 @@
     "react/jsx-curly-brace-presence": "error",
     /** コンポーネントにPascalCaseの命名を強制 */
     "react/jsx-pascal-case": "error",
-    /** testメソッドを"test"に統一 */
-    "jest/consistent-test-it": ["error", { "fn": "test" }],
     /** イミュータブルな操作を禁止 */
-    /** TODO: 全て解消後にerrorに変更 */
     "functional/immutable-data": [
       "warn",
       {
@@ -170,7 +159,7 @@
     ],
 
     /** 関数のスタイルをアロー関数に統一 */
-    "import/no-anonymous-default-export": "off",
+    // "import/no-anonymous-default-export": "off",
     "arrow-body-style": ["error", "as-needed"],
     "func-style": "error",
     "prefer-arrow-functions/prefer-arrow-functions": [
@@ -184,7 +173,6 @@
     ],
     /** jsxへのコールバック関数の記載を禁止 */
     "react/jsx-no-bind": ["warn", { "ignoreDOMComponents": true }],
-    "local-rules/check-css-class": "warn",
     /** console.logを禁止 */
     "no-console": "warn",
     /** 関数のステートメントを30個までに */
@@ -249,7 +237,6 @@
       }
     ],
     "import/newline-after-import": "error", // importの後に改行
-    "import/first": "error", // importをファイル先頭に記述
-    "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }]
+    "import/first": "error" // importをファイル先頭に記述
   }
 }
