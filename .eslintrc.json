@@ -3,6 +3,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:tailwindcss/recommended",
+    "plugin:jsdoc/recommended-typescript-error",
     "next/core-web-vitals",
     "prettier"
   ],
@@ -10,10 +12,187 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["import", "@typescript-eslint"],
+  "plugins": [
+    "import",
+    "@typescript-eslint",
+    "tailwindcss",
+    "jsdoc",
+    "functional",
+    "prefer-arrow-functions",
+    "local-rules"
+  ],
   "root": true,
-  "ignorePatterns": ["prettier.config.js", "postcss.config.js", "next.config.mjs"],
+  "ignorePatterns": [
+    "./next*",
+    ".swc",
+    "**/*.js",
+    "**/*.cjs",
+    "**/*.mjs",
+    "pnpm-lock.yaml",
+    "bun.lockb",
+    "__generated__"
+  ],
   "rules": {
+    /** メソッドシグネチャでの関数宣言を禁止 */
+    "@typescript-eslint/method-signature-style": ["error", "property"],
+    "no-restricted-syntax": [
+      "error",
+      "TSEnumDeclaration",
+      "TSInterfaceDeclaration",
+      "ForInStatement",
+      "ForOfStatement",
+      "LabeledStatement",
+      "WithStatement",
+      "VariableDeclaration[kind='let']",
+      /** `as` 型アサーションを禁止 */
+      {
+        "selector": "VariableDeclarator[init.type='TSAsExpression'][init.typeAnnotation.typeName.name!='const']",
+        "message": "Don't use `as`."
+      }
+    ],
+    "object-shorthand": ["error", "always"],
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    /** non null assertionを禁止 */
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "jsdoc/tag-lines": "off",
+    "jsdoc/no-types": "off",
+    /** 引数の`@params`での解説を強制 */
+    "jsdoc/require-param": [
+      "error",
+      {
+        "checkDestructuredRoots": false
+      }
+    ],
+    /** `@params`の値が引数と一致していることを確認 */
+    "jsdoc/check-param-names": [
+      "error",
+      {
+        "checkDestructured": false
+      }
+    ],
+    /** JSDocコメントを強制 */
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        "publicOnly": true,
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true,
+          "ArrowFunctionExpression": true,
+          "FunctionExpression": true
+        }
+      }
+    ],
+    "jsdoc/require-returns": "off",
+    "jsdoc/require-returns-description": "off",
+    /** コメントの詳細がない関数をerrorに */
+    "jsdoc/require-description": [
+      "error",
+      {
+        "descriptionStyle": "body"
+      }
+    ],
+    /** 見出しレベルのハードコードを禁止 */
+    "react/forbid-elements": [
+      "error",
+      { "forbid": ["h1", "h2", "h3", "h4", "h5", "h6"] }
+    ],
+    /** 相対パスでのインポートを禁止 */
+    "no-restricted-imports": ["error", { "patterns": ["./", "../"] }],
+    /** 冗長なReact.Fragmentを禁止 */
+    "react/jsx-no-useless-fragment": ["error"],
+    /** 中身のない要素を禁止し、自己終了タグでの指定を強制 */
+    "react/self-closing-comp": ["error"],
+    /** awaitのないasyncを禁止 */
+    "@typescript-eslint/require-await": "error",
+    "require-await": "error",
+    /** voidを期待される箇所でのPromise<void> form action用に無効化 */
+    "@typescript-eslint/no-misused-promises": "off",
+    /** 異なる型動詞の加算や、文字列の + による連結を禁止 */
+    "no-implicit-coercion": "error",
+    "@typescript-eslint/restrict-plus-operands": "error",
+    "prefer-template": "error",
+    /** switch文の分岐網羅を強制 */
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+    /** switch文が適している箇所でのif文を修正 */
+    "unicorn/prefer-switch": "error",
+    "import/no-cycle": "error",
+    /** インポート直後の空白行を強制 */
+    "import/newline-after-import": "error",
+    /** 型定義のtype only importを強制 */
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports",
+        "disallowTypeAnnotations": true
+      }
+    ],
+    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+    "@typescript-eslint/consistent-type-exports": "error",
+
+    /** イベントハンドラの命名規則 propsにon,関数にhandleを強制 */
+    "react/jsx-handler-names": [
+      "error",
+      {
+        "eventHandlerPrefix": "handle",
+        "eventHandlerPropPrefix": "on",
+        "checkLocalVariables": true,
+        "checkInlineFunction": true
+      }
+    ],
+    /** jsxでのbooleanの`={true}`を省略 */
+    "react/jsx-boolean-value": "error",
+    /** 文字列の冗長な`{}`を削除 */
+    "react/jsx-curly-brace-presence": "error",
+    /** コンポーネントにPascalCaseの命名を強制 */
+    "react/jsx-pascal-case": "error",
+    /** testメソッドを"test"に統一 */
+    "jest/consistent-test-it": ["error", { "fn": "test" }],
+    /** イミュータブルな操作を禁止 */
+    /** TODO: 全て解消後にerrorに変更 */
+    "functional/immutable-data": [
+      "warn",
+      {
+        "ignoreAccessorPattern": [
+          "**.current.**", // allow React Ref object
+          "**.displayName", // allow React component displayName
+          "**.scrollTop", // allow modifying
+          // HTMLElementのvalueは許可
+          "**Element.value",
+          "element.value"
+        ]
+      }
+    ],
+
+    /** 関数のスタイルをアロー関数に統一 */
+    "import/no-anonymous-default-export": "off",
+    "arrow-body-style": ["error", "as-needed"],
+    "func-style": "error",
+    "prefer-arrow-functions/prefer-arrow-functions": [
+      "error",
+      {
+        "classPropertiesAllowed": false,
+        "disallowPrototype": false,
+        "returnStyle": "unchanged",
+        "singleReturnOnly": false
+      }
+    ],
+    /** jsxへのコールバック関数の記載を禁止 */
+    "react/jsx-no-bind": ["warn", { "ignoreDOMComponents": true }],
+    "local-rules/check-css-class": "warn",
+    /** console.logを禁止 */
+    "no-console": "warn",
+    /** 関数のステートメントを30個までに */
+    "max-statements": ["warn", 30],
+    /** ネストの深さを3までに */
+    "max-depth": ["error", 3],
+    /** 不要なelseを自動修正 */
+    "no-else-return": "error",
     "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }],
     "import/order": [
       "error",
