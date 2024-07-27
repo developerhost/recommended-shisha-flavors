@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["clsx", "shisha", "tailwindcss"]
+  "cSpell.words": ["clsx", "shisha", "tailwindcss"],
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"]
 }
