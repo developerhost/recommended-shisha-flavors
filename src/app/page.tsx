@@ -1,8 +1,10 @@
-import { Button } from '@nextui-org/button'
-
 /**
- * テスト用のページ
+ * メインページ
  */
-const HOME = () => <Button>Click this</Button>
+const Home = () => (
+  <div>
+    <div>Main</div>
+  </div>
+)
 
-export default HOME
+export default Home
