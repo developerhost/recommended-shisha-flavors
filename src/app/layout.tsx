@@ -5,6 +5,8 @@ import { Inter } from 'next/font/google'
 
 import { type Metadata } from 'next'
 
+import UiProvider from '@/app/UiProvider'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -22,7 +24,9 @@ const RootLayout = ({
   children: React.ReactNode
 }>) => (
   <html lang='ja'>
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>
+      <UiProvider>{children}</UiProvider>
+    </body>
   </html>
 )
 

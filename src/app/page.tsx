@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@nextui-org/button'
 
 /**
  * テスト用のページ

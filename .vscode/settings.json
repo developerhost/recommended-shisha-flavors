@@ -1,4 +1,16 @@
 {
-  "cSpell.words": ["clsx", "linebreak", "lockb", "lucide", "shisha", "tailwindcss"],
-  "editor.codeActionsOnSave": ["source.fixAll.eslint", "source.addMissingImports"]
+  "cSpell.words": [
+    "clsx",
+    "linebreak",
+    "lockb",
+    "lucide",
+    "nextui",
+    "shisha",
+    "tailwindcss"
+  ],
+  "editor.codeActionsOnSave": ["source.fixAll.eslint", "source.addMissingImports"],
+  "workbench.editor.customLabels.patterns": {
+    "**/app/**/{*.tsx,route.ts,actions.ts}": "🌐 ${dirname(1)}/${dirname} ∙ ${filename}",
+    "**/components/**/*": "🧩 ${dirname}/${filename}.${extname}"
+  }
 }
