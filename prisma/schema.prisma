@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 String  @id @default(cuid()) @db.VarChar
+  userId             String  @db.VarChar
+  type               String  @db.VarChar
+  provider           String  @db.VarChar
+  providerAccountId  String  @db.VarChar
+  refresh_token      String? @db.VarChar
+  access_token       String? @db.VarChar
+  expires_at         Int?
+  token_type         String? @db.VarChar
+  scope              String? @db.VarChar
+  id_token           String? @db.VarChar
+  session_state      String? @db.VarChar
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid()) @db.VarChar
+  sessionToken String   @unique @db.VarChar
+  userId       String   @db.VarChar
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id              String    @id @default(cuid()) @db.VarChar
+  password        String?   @db.VarChar
+  name            String?   @db.VarChar
+  email           String    @unique @db.VarChar
+  isEmailVerified Boolean   @db.Boolean
+  emailVerified   DateTime?
+  image           String?   @db.VarChar
+  accounts        Account[]
+  sessions        Session[]
+}
+
+model VerificationToken {
+  identifier String  @db.VarChar
+  token      String  @unique @db.VarChar
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

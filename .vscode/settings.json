@@ -4,8 +4,11 @@
     "linebreak",
     "lockb",
     "lucide",
+    "MYPAGE",
+    "NEXTAUTH",
     "nextui",
     "shisha",
+    "signin",
     "tailwindcss"
   ],
   "editor.codeActionsOnSave": ["source.fixAll.eslint", "source.addMissingImports"],
